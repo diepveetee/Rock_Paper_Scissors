@@ -107,7 +107,7 @@ public class RockPaperScissorsFrame extends JFrame {
 
     /**
      * Creates the middle panel containing the scrollable text area
-     * where historymoves are displayed.
+     * where history moves are displayed.
      *
      * @return JPanel containing a JScrollPane with JTextArea
      */
