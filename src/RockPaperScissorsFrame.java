@@ -3,9 +3,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame {
 
@@ -288,13 +285,13 @@ public class RockPaperScissorsFrame extends JFrame {
     }
 
     private Strategy chooseStrategy() {
-        double r = Math.random();
+        int r = (int)(Math.random() * 100) + 1;  // 1–100
 
-        if (r < 0.20) return leastUsed;      // 20%
-        else if (r < 0.40) return mostUsed;  // 20%
-        else if (r < 0.60) return lastUsed;  // 20%
-        else if (r < 0.85) return randomStrategy;    // 25%
-        else return cheat;                   // 15%
+        if (r <= 10) return cheat;               // 1–10 (10%)
+        else if (r <= 30) return leastUsed;      // 11–30 (20%)
+        else if (r <= 50) return mostUsed;       // 31–50 (20%)
+        else if (r <= 70) return lastUsed;       // 51–70 (20%)
+        else return randomStrategy;              // 71–100 (30%)
     }
 
     private class MoveListener implements ActionListener {
