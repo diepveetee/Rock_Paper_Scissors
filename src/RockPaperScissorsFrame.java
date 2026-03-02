@@ -46,6 +46,15 @@ public class RockPaperScissorsFrame extends JFrame {
         configureFrame();
     }
 
+
+    /**
+     * Loads an image from the resources folder and scales it to specified dimensions.
+     * * @param filename The name of the image file in the resources folder.
+     * @param width    The target width for the icon.
+     * @param height   The target height for the icon.
+     * @return An ImageIcon if found and scaled; null otherwise.
+     */
+
     private ImageIcon createIcon(String filename, int width, int height) {
         try {
             // Look in the resources folder (filename should be like "rock.png")
@@ -147,6 +156,12 @@ public class RockPaperScissorsFrame extends JFrame {
         return panel;
     }
 
+    /**
+     * Creates the controls panel with buttons for Rock, Paper, Scissors, and Quit.
+     *
+     * @return JPanel containing game play buttons.
+     */
+
     private JPanel createControlsPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -186,6 +201,12 @@ public class RockPaperScissorsFrame extends JFrame {
 
         return panel;
     }
+
+    /**
+     * Creates the statistics panel containing read-only fields for wins and ties.
+     *
+     * @return JPanel containing formatted game statistics.
+     */
 
     private JPanel createStatsPanel() {
         JPanel panel = new JPanel(new GridLayout(3,2,6,6));
@@ -251,8 +272,11 @@ public class RockPaperScissorsFrame extends JFrame {
         setVisible(true);
     }
 
-    //Strategies
+// --- STRATEGY IMPLEMENTATIONS ---
 
+    /**
+     * Strategy that chooses a move to counter the player's least used move.
+     */
     public class LeastUsed implements Strategy{
         public String getMove(String playerMove) {
             int min = Math.min(countR, Math.min(countP, countS));
@@ -262,6 +286,9 @@ public class RockPaperScissorsFrame extends JFrame {
         }
     }
 
+    /**
+     * Strategy that chooses a move to counter the player's most used move.
+     */
     private class MostUsed implements Strategy {
         public String getMove(String playerMove) {
             int max = Math.max(countR, Math.max(countP, countS));
@@ -272,6 +299,10 @@ public class RockPaperScissorsFrame extends JFrame {
         }
     }
 
+
+    /**
+     * Strategy that counters the move the player used in the previous round.
+     */
     private class LastUsed implements Strategy {
         public String getMove(String playerMove) {
             if (lastPlayerMove == null) return new RandomStrategy().getMove(playerMove);
@@ -284,6 +315,11 @@ public class RockPaperScissorsFrame extends JFrame {
         }
     }
 
+    /**
+     * Randomly selects a strategy for the computer based on weighted probabilities.
+     * * @return A Strategy object (Cheat, LeastUsed, MostUsed, LastUsed, or Random).
+     */
+
     private Strategy chooseStrategy() {
         int r = (int)(Math.random() * 100) + 1;  // 1–100
 
@@ -294,6 +330,10 @@ public class RockPaperScissorsFrame extends JFrame {
         else return randomStrategy;              // 71–100 (30%)
     }
 
+    /**
+     * ActionListener to handle button clicks for moves. Updates move counts
+     * and triggers round evaluation.
+     */
     private class MoveListener implements ActionListener {
         public void actionPerformed(ActionEvent ae) {
             String playerMove = ae.getActionCommand(); // "R", "P", or "S"
@@ -312,6 +352,11 @@ public class RockPaperScissorsFrame extends JFrame {
         }
     }
 
+    /**
+     * Converts single character move codes into full words.
+     * * @param move "R", "P", or "S".
+     * @return "Rock", "Paper", or "Scissors".
+     */
     private String toWord(String move) {
         switch (move) {
             case "R": return "Rock";
@@ -321,13 +366,24 @@ public class RockPaperScissorsFrame extends JFrame {
         return "";
     }
 
+    /**
+     * Determines if move p beats move c.
+     * @param p Player move code.
+     * @param c Computer move code.
+     * @return true if p wins; false otherwise.
+     */
     private boolean winsAgainst(String p, String c) {
         return (p.equals("R") && c.equals("S")) ||
                 (p.equals("P") && c.equals("R")) ||
                 (p.equals("S") && c.equals("P"));
     }
 
-
+    /**
+     * Evaluates the winner of the round, updates stats, and appends the result to history.
+     * * @param playerMove The move code chosen by the player.
+     * @param compMove   The move code chosen by the computer.
+     * @param strat      The strategy used by the computer this round.
+     */
     private void evaluateRound(String playerMove, String compMove, Strategy strat) {
         String strategyName = strat.getClass().getSimpleName();
 
@@ -360,12 +416,9 @@ public class RockPaperScissorsFrame extends JFrame {
 
 
     /**
-     * Main entry point of the Fortune Teller application.
-     *
-     * Ensures the GUI is created on the Event Dispatch Thread (EDT)
-     * using SwingUtilities.invokeLater.
+     * Main entry point for the application. Launches the frame on the EDT.
+     * * @param args Command line arguments (not used).
      */
-
     public static void main(String[] args)
     {
         // The invokeLater method ensures the GUI is created on the
