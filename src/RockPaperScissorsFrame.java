@@ -3,9 +3,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame {
 
@@ -110,7 +107,7 @@ public class RockPaperScissorsFrame extends JFrame {
 
     /**
      * Creates the middle panel containing the scrollable text area
-     * where historymoves are displayed.
+     * where history moves are displayed.
      *
      * @return JPanel containing a JScrollPane with JTextArea
      */
