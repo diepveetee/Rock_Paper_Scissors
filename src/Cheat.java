@@ -1,7 +1,7 @@
 
 
 
-public class Cheat {
+public class Cheat implements Strategy{
 
 //    @Override
     public String getMove(String playerMove) {
