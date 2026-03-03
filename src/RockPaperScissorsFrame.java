@@ -20,11 +20,14 @@ public class RockPaperScissorsFrame extends JFrame {
     private JTextField computerWinsField;
     private JTextField tiesField;
 
+    // Counters
     private int countR = 0;
     private int countP = 0;
     private int countS = 0;
-    private String lastPlayerMove = null;
 
+
+    //and checks for last player move to determine CPU strategy
+    private String lastPlayerMove = null;
     private Strategy leastUsed = new LeastUsed();
     private Strategy mostUsed = new MostUsed();
     private Strategy lastUsed = new LastUsed();
@@ -34,6 +37,8 @@ public class RockPaperScissorsFrame extends JFrame {
     /** Stores the index of the previously displayed fortune. */
     private int lastIndex = -1;
 
+
+    /** Adds panels **/
     public RockPaperScissorsFrame() {
         super("Rock Paper Scissors Game");
 
@@ -92,27 +97,15 @@ public class RockPaperScissorsFrame extends JFrame {
         titleLabel.setHorizontalAlignment(SwingConstants.LEFT);
         titleLabel.setVerticalAlignment(SwingConstants.CENTER);
 
-        JLabel personScore = new JLabel("Player:");
-        personScore.setFont(new Font("SansSerif", Font.BOLD, 18));
-        personScore.setForeground(Color.DARK_GRAY);
-
-        JLabel computerScore = new JLabel("Computer:");
-        computerScore.setFont(new Font("SansSerif", Font.BOLD, 18));
-        computerScore.setForeground(Color.DARK_GRAY);
-        // Score panel (side by side)
-        JPanel scorePanel = new JPanel(new GridLayout(1, 2, 10, 0)); // 10px horizontal gap
-        scorePanel.setBackground(Color.WHITE);
-        scorePanel.add(personScore);
-        scorePanel.add(computerScore);
-
-        // Top panel with BorderLayout: title left, scores right
         JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.WHITE);
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10)); // padding
+        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
         topPanel.add(titleLabel, BorderLayout.WEST);
-        topPanel.add(scorePanel, BorderLayout.EAST);
+
         return topPanel;
     }
+
 
     /**
      * Creates the middle panel containing the scrollable text area
@@ -324,10 +317,10 @@ public class RockPaperScissorsFrame extends JFrame {
         int r = (int)(Math.random() * 100) + 1;  // 1–100
 
         if (r <= 10) return cheat;               // 1–10 (10%)
-        else if (r <= 30) return leastUsed;      // 11–30 (20%)
-        else if (r <= 50) return mostUsed;       // 31–50 (20%)
-        else if (r <= 70) return lastUsed;       // 51–70 (20%)
-        else return randomStrategy;              // 71–100 (30%)
+        else if (r <= 30) return leastUsed;      // 10–30 (20%)
+        else if (r <= 50) return mostUsed;       // 30–50 (20%)
+        else if (r <= 70) return lastUsed;       // 50–70 (20%)
+        else return randomStrategy;              // 70–100 (30%)
     }
 
     /**
