@@ -166,11 +166,12 @@ public class RockPaperScissorsFrame extends JFrame {
         ImageIcon rockIcon = createIcon("rock.png", 64, 64);
         ImageIcon paperIcon = createIcon("paper.png", 64, 64);
         ImageIcon scissorsIcon = createIcon("scissors.png", 64, 64);
+        ImageIcon quitIcon = createIcon("exit.png", 64, 64);
 
         JButton rockButton = new JButton("Rock", rockIcon);
         JButton paperButton = new JButton("Paper", paperIcon);
         JButton scissorsButton = new JButton("Scissors", scissorsIcon);
-        JButton quitButton = new JButton("Quit");
+        JButton quitButton = new JButton("Quit", quitIcon);
 
         MoveListener listener = new MoveListener();
 
